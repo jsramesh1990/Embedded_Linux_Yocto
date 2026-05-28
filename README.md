@@ -2,6 +2,8 @@
 
 ###  Embedded Linux and Yocto learning materials
 
+- [Embedded_Linux&Yocto_topics](https://github.com/jsramesh1990/Embedded-Linux-Yocto/blob/main/yocto.md)
+
 ## Overview
 
 This repository provides a scalable enterprise-grade Embedded Linux platform built using the Yocto Project.
