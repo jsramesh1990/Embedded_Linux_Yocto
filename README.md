@@ -1,4 +1,4 @@
-# Embedded Linux Yocto Platform Repository
+# Embedded Linux Yocto 
 
 ## Overview
 
@@ -671,21 +671,6 @@ Release Tagging
 
 ---
 
-# Documentation Structure
-
-```text
-docs/
-├── architecture/
-├── board-support/
-├── flashing/
-├── verification/
-├── security/
-├── ci-cd/
-├── ota/
-├── manufacturing/
-└── troubleshooting/
-```
-
 ---
 
 # Future Roadmap
@@ -736,51 +721,6 @@ Planned additions:
 
 ---
 
-# Useful References
-
-## Yocto
-
-* [https://www.yoctoproject.org/](https://www.yoctoproject.org/)
-* [https://docs.yoctoproject.org/](https://docs.yoctoproject.org/)
-
----
-
-## OpenEmbedded
-
-* [https://www.openembedded.org/](https://www.openembedded.org/)
-
----
-
-## kas
-
-* [https://kas.readthedocs.io/](https://kas.readthedocs.io/)
-
----
-
-## RAUC
-
-* [https://rauc.io/](https://rauc.io/)
-
----
-
-## Mender
-
-* [https://mender.io/](https://mender.io/)
-
----
-
-# License
-
-This repository follows:
-
-* Apache-2.0
-* MIT
-* GPLv2/GPLv3 for kernel/vendor components
-
-Refer to each layer LICENSE file for details.
-
----
-
 # Contribution Guidelines
 
 ## Requirements
@@ -795,28 +735,3 @@ Before submitting:
 
 ---
 
-# Maintainers
-
-Platform Team:
-
-* BSP Team
-* CI/CD Team
-* Security Team
-* Validation Team
-* Manufacturing Team
-
----
-
-# Final Goal
-
-This repository aims to provide:
-
-* Enterprise-grade Yocto platform
-* Multi-board scalability
-* Production-ready deployment
-* Long-term maintainability
-* Automated validation
-* Secure OTA updates
-* Manufacturing readiness
-
-for modern embedded Linux products.
