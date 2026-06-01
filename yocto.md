@@ -187,15 +187,3 @@ This document contains beginner to advanced Embedded Linux and Yocto interview p
 - [Multi-core_optimization](
 
 ---
-
-# 15. Hands-On Practice
-
-Recommended exercises:
-
-- [Build_custom_Yocto_image](
-- [Create_recipe](
-- [Create_layer](
-- [Add_kernel_patch](
-- [Modify_Device_Tree](
-- [Add_systemd_service](
-- [Implement_OTA_workflow](
