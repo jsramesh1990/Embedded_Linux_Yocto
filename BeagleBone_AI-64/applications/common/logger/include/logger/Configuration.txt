@@ -1,0 +1,50 @@
+{
+  "level": "INFO",
+  "format": "[%time] [%level] [%thread] %message %context",
+  "colored": false,
+  "include_thread": true,
+  "include_file": true,
+  "include_session": true,
+  "sinks": [
+    {
+      "type": "console",
+      "config": {
+        "use_stderr": false,
+        "show_timestamp": true,
+        "show_thread": true
+      }
+    },
+    {
+      "type": "rotating_file",
+      "config": {
+        "file_path": "/var/log/app.log",
+        "max_size": 10485760,
+        "max_files": 5,
+        "rotation_time": 86400,
+        "rotation_policy": "size_time",
+        "compress": true,
+        "append": true
+      }
+    },
+    {
+      "type": "syslog",
+      "config": {
+        "ident": "myapp",
+        "facility": "local0"
+      }
+    },
+    {
+      "type": "network",
+      "config": {
+        "protocol": "tcp",
+        "host": "logs.example.com",
+        "port": 514,
+        "format": "json",
+        "batch": true,
+        "batch_size": 100,
+        "retry_attempts": 3,
+        "retry_delay": 1000
+      }
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+void rotatingFileLoggingExample() {
+    auto& logger = Logger::getInstance();
+    
+    // Initialize with rotating file sink
+    Logger::Config config;
+    config.level = LogLevel::INFO;
+    config.format = "[%time] [%level] %message";
+    
+    // Add rotating file sink
+    auto rotatingSink = std::make_unique<RotatingFileSink>();
+    rotatingSink->setFilePath("/var/log/app.log");
+    rotatingSink->setMaxSize(10 * 1024 * 1024); // 10MB
+    rotatingSink->setMaxFiles(5);
+    rotatingSink->setRotationTime(86400); // Daily rotation
+    rotatingSink->setCompress(true);
+    config.sinks.push_back(std::move(rotatingSink));
+    
+    logger.initialize(config);
+    
+    // Log messages - will auto-rotate
+    for (int i = 0; i < 10000; ++i) {
+        logger.info("Log message #" + std::to_string(i));
+    }
+}

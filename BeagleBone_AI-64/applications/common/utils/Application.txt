@@ -1,0 +1,87 @@
+#include "utils/StringUtils.h"
+#include "utils/FileUtils.h"
+#include "utils/TimeUtils.h"
+#include "utils/ThreadPool.h"
+#include "utils/NetworkUtils.h"
+#include "utils/CircularBuffer.h"
+#include "utils/JsonUtils.h"
+#include <iostream>
+
+using namespace common::utils;
+
+int main() {
+    // String utilities
+    std::string str = "  Hello, World!  ";
+    std::cout << "Trimmed: '" << StringUtils::trim(str) << "'" << std::endl;
+    std::cout << "Lower: " << StringUtils::toLower(str) << std::endl;
+    std::cout << "Random: " << StringUtils::random(16) << std::endl;
+    std::cout << "SHA256: " << StringUtils::hashSHA256("test") << std::endl;
+    
+    // File utilities
+    std::string path = "/tmp/test.txt";
+    FileUtils::writeString(path, "Hello, World!");
+    std::cout << "File size: " << FileUtils::getSize(path) << " bytes" << std::endl;
+    auto info = FileUtils::getFileInfo(path);
+    std::cout << "File: " << info.name << " (modified: " 
+              << TimeUtils::timestampToString(
+                  std::chrono::duration_cast<std::chrono::milliseconds>(
+                      info.modified.time_since_epoch()).count()) << ")" << std::endl;
+    
+    // Time utilities
+    std::cout << "Current time: " << TimeUtils::currentTime() << std::endl;
+    std::cout << "Timestamp: " << TimeUtils::currentTimestampMs() << "ms" << std::endl;
+    std::cout << "Duration: " << TimeUtils::parseDuration("1h30m") << "ms" << std::endl;
+    
+    TimeUtils::Stopwatch sw;
+    sw.start();
+    TimeUtils::sleep(100);
+    sw.stop();
+    std::cout << "Elapsed: " << sw.toString() << std::endl;
+    
+    // Thread pool
+    ThreadPool pool(4);
+    
+    auto future1 = pool.submit([]() {
+        std::cout << "Task 1 in thread " << std::this_thread::get_id() << std::endl;
+        return 42;
+    });
+    
+    auto future2 = pool.submitPriority(1, []() {
+        std::cout << "Task 2 (priority) in thread " << std::this_thread::get_id() << std::endl;
+        return "Hello";
+    });
+    
+    std::cout << "Result 1: " << future1.get() << std::endl;
+    std::cout << "Result 2: " << future2.get() << std::endl;
+    
+    // Network utilities
+    std::cout << "Hostname: " << NetworkUtils::getHostname() << std::endl;
+    auto ips = NetworkUtils::getLocalIPs();
+    for (const auto& ip : ips) {
+        std::cout << "Local IP: " << ip << std::endl;
+    }
+    
+    // Circular buffer
+    CircularBuffer<int> buffer(5);
+    for (int i = 1; i <= 5; ++i) {
+        buffer.push(i);
+    }
+    int val;
+    while (buffer.pop(val)) {
+        std::cout << "Buffer pop: " << val << std::endl;
+    }
+    
+    // JSON utilities
+    Json::Value json;
+    json["name"] = "John";
+    json["age"] = 30;
+    json["active"] = true;
+    
+    std::string jsonStr = JsonUtils::serialize(json, true);
+    std::cout << "JSON: " << jsonStr << std::endl;
+    
+    auto parsed = JsonUtils::parse(jsonStr);
+    std::cout << "Parsed name: " << parsed["name"].asString() << std::endl;
+    
+    return 0;
+}

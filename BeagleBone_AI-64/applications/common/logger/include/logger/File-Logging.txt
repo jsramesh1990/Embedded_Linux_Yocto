@@ -1,0 +1,19 @@
+void fileLoggingExample() {
+    auto& logger = Logger::getInstance();
+    
+    // Initialize with file sink
+    Logger::Config config;
+    config.level = LogLevel::DEBUG;
+    config.format = "[%time] [%level] [%thread] %message";
+    
+    // Add file sink
+    auto fileSink = std::make_unique<FileSink>();
+    fileSink->setFilePath("/var/log/app.log");
+    fileSink->setAppend(true);
+    config.sinks.push_back(std::move(fileSink));
+    
+    logger.initialize(config);
+    
+    // Log messages
+    logger.info("Logging to file");
+}

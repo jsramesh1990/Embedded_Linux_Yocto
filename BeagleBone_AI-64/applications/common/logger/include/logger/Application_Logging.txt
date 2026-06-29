@@ -1,0 +1,83 @@
+#include "logger/Logger.h"
+#include "config/ConfigManager.h"
+#include <thread>
+
+using namespace common;
+
+class Application {
+private:
+    std::string appName;
+    std::string version;
+    
+public:
+    Application(const std::string& name, const std::string& ver) 
+        : appName(name), version(ver) {}
+    
+    void initialize() {
+        auto& logger = Logger::getInstance();
+        auto& config = ConfigManager::getInstance();
+        
+        // Load logger configuration
+        std::string logConfig = config.get<std::string>("logging.config", "/etc/app/logging.json");
+        logger.initialize(logConfig);
+        
+        // Set context for all log messages
+        logger.setSessionId(generateSessionId());
+        logger.setUserId(config.get<std::string>("system.user", "system"));
+        
+        // Log startup
+        Json::Value startupContext;
+        startupContext["app"] = appName;
+        startupContext["version"] = version;
+        startupContext["pid"] = getpid();
+        logger.info("Application starting", startupContext);
+        
+        // Set performance monitoring
+        logger.setPerformanceMonitoring(true);
+    }
+    
+    void run() {
+        auto& logger = Logger::getInstance();
+        
+        // Simulate work
+        for (int i = 0; i < 10; ++i) {
+            Json::Value context;
+            context["iteration"] = i;
+            context["timestamp"] = std::chrono::system_clock::now().time_since_epoch().count();
+            
+            logger.debug("Processing iteration", context);
+            
+            if (i % 3 == 0) {
+                logger.warn("Warning condition encountered", context);
+            }
+            
+            std::this_thread::sleep_for(std::chrono::seconds(1));
+        }
+        
+        // Log finalization
+        logger.info("Application stopping");
+        
+        // Get statistics
+        auto stats = logger.getStats();
+        std::cout << "Log statistics: " << stats.toStyledString() << std::endl;
+    }
+    
+private:
+    std::string generateSessionId() {
+        auto now = std::chrono::system_clock::now();
+        auto timestamp = std::chrono::duration_cast<std::chrono::milliseconds>(
+            now.time_since_epoch()).count();
+        return "session-" + std::to_string(timestamp);
+    }
+    
+    int getpid() {
+        return ::getpid();
+    }
+};
+
+int main() {
+    Application app("MyApp", "1.0.0");
+    app.initialize();
+    app.run();
+    return 0;
+}
