@@ -1,4 +1,4 @@
-# 🚀 BBB AI-64 Yocto Project
+#  BBB AI-64 Yocto Project
 
 <div align="center">
 
@@ -20,7 +20,7 @@
 
 ---
 
-## 📋 Table of Contents
+##  Table of Contents
 
 - [Overview](#-overview)
 - [Project Flow](#-project-flow)
@@ -38,11 +38,11 @@
 
 ---
 
-## 🎯 Overview
+##  Overview
 
 The **BBB AI-64 Yocto Project** is a complete, production-ready embedded Linux distribution for the [BeagleBone Black AI-64](https://beagleboard.org/ai-64) board. Built on the Yocto Project, it provides a robust, secure, and high-performance platform for IoT, edge AI, and industrial applications.
 
-### 📊 Project Statistics
+###  Project Statistics
 
 | Metric | Value |
 |--------|-------|
@@ -54,7 +54,7 @@ The **BBB AI-64 Yocto Project** is a complete, production-ready embedded Linux d
 | **CI/CD Pipelines** | 3 |
 | **Test Coverage** | 85%+ |
 
-### 🌟 Key Highlights
+###  Key Highlights
 
 | Feature | Description | Status |
 |---------|-------------|--------|
@@ -70,7 +70,7 @@ The **BBB AI-64 Yocto Project** is a complete, production-ready embedded Linux d
 
 ---
 
-## 🔄 Project Flow
+##  Project Flow
 
 ### Complete Project Workflow Diagram
 
