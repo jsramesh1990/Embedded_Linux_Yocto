@@ -794,7 +794,7 @@ gantt
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 ### Development Workflow
 
@@ -822,11 +822,7 @@ int calculateSensorValue(int rawData);
 
 ---
 
-## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
 
 ## 🙏 Acknowledgments
 
