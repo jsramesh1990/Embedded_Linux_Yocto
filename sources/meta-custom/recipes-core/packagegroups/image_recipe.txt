@@ -1,5 +1,0 @@
-IMAGE_INSTALL:append = " \
-    packagegroup-gui \
-    packagegroup-sensors \
-    packagegroup-system \
-    "
